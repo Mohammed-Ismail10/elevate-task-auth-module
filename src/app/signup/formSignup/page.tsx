@@ -1,8 +1,9 @@
+"use client";
 import SocialSign from "@/app/_components/socialSign/page";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, use, useState } from "react";
+import React, { useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import * as Yup from "yup";
 
@@ -27,9 +28,8 @@ export default function FormSignup() {
         }
       );
       const data = await response.json();
-      console.log(data);
       if (data.message === "success") {
-        router.push("/");
+        router.push("/signin");
       } else {
         setError(data.message);
       }
@@ -85,11 +85,11 @@ export default function FormSignup() {
 
   return (
     <>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
       <form onSubmit={formik.handleSubmit} className="mt-7 w-4/5">
+        {error && <p className="text-red-500 mt-5">{error}</p>}
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.username && formik.errors.username
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -107,7 +107,7 @@ export default function FormSignup() {
         </div>
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.firstName && formik.errors.firstName
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -125,7 +125,7 @@ export default function FormSignup() {
         </div>
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.lastName && formik.errors.lastName
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -143,7 +143,7 @@ export default function FormSignup() {
         </div>
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.email && formik.errors.email
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -161,7 +161,7 @@ export default function FormSignup() {
         </div>
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.phone && formik.errors.phone
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -179,7 +179,7 @@ export default function FormSignup() {
         </div>
         <div className="relative mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg ${
               formik.touched.password && formik.errors.password
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -212,7 +212,7 @@ export default function FormSignup() {
         </div>
         <div className="relative mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg ${
               formik.touched.rePassword && formik.errors.rePassword
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"

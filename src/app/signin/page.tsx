@@ -10,7 +10,7 @@ export default function Signin() {
   return (
     <>
       <section className="grid grid-cols-2 h-screen">
-        <div>
+        <div className="hidden md:block">
           <Header />
         </div>
 

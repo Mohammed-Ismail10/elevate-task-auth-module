@@ -1,22 +1,42 @@
 import SocialSign from "@/app/_components/socialSign/page";
 import { useFormik } from "formik";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import * as Yup from "yup";
 
 export default function FormSignin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  function handleSubmit(values: any) {
-    setLoading(true);
-    signIn("credentials", {
-      ...values,
-      redirect: true,
-      callbackUrl: "/",
-    });
-    setLoading(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+  async function handleSubmit(values: any) {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://exam.elevateegy.com/api/v1/auth/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (data.message === "success") {
+        localStorage.setItem("examToken", data.token);
+        router.push("/");
+      } else {
+        setError(data.message);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      setLoading(false);
+    }
   }
 
   const validationSchema = Yup.object({
@@ -45,9 +65,10 @@ export default function FormSignin() {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="mt-7 w-4/5">
+        {error && <p className="text-red-500">{error}</p>}
         <div className="mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.email && formik.errors.email
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"
@@ -65,7 +86,7 @@ export default function FormSignin() {
         </div>
         <div className="relative mb-5">
           <input
-            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg border ${
+            className={`w-full p-4 rounded-[10px] bg-[#F9F9F9] shadow-lg  ${
               formik.touched.password && formik.errors.password
                 ? "outline-red-500"
                 : "focus:outline-[#4461F2]"

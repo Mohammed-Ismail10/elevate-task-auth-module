@@ -10,7 +10,7 @@ export default function Signup() {
   return (
     <>
       <section className="grid grid-cols-2 h-screen">
-        <div>
+        <div className="hidden md:block">
           <Header />
         </div>
         <div className="w-3/4 mx-auto pt-10 ">

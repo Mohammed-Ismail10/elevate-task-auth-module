@@ -1,15 +1,15 @@
-"use client";
+'use client'
+import MainQuizes from "@/app/_components/mainQuizes/page";
+import Sidebar from "@/app/_components/sidebar/page";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import Sidebar from "./_components/sidebar/page";
-import MainDashboard from "./_components/mainDashboard/page";
+import React, { useEffect } from "react";
 
-export default function Home() {
+export default function Exam() {
+
+
   const router = useRouter();
   useEffect(() => {
-    if (localStorage.getItem("examToken")) {
-      router.push("/");
-    } else {
+    if (!localStorage.getItem("examToken")) {
       router.push("/signin");
     }
   }, [router]);
@@ -18,10 +18,10 @@ export default function Home() {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5 ">
           <div className="md:col-span-1">
-            <Sidebar/>
+            <Sidebar />
           </div>
           <div className="md:col-span-4">
-            <MainDashboard/>
+            <MainQuizes />
           </div>
         </div>
       </section>

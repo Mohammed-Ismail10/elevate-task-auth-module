@@ -1,7 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+module.exports = {
+  images: {
+    domains: ['exam.elevateegy.com'], // أضف اسم النطاق هنا
+  },
 };
-
-export default nextConfig;
